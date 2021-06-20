@@ -1,6 +1,9 @@
 <template>
 	<div>
-		<div class="content">
+		<div class="content" v-if="!show">
+			找不到{{value}}的相关信息!
+		</div>
+		<div class="content" v-else>
 			<a :href="result.url">
 				<img class="avatar" :src="result.coverURL" :alt="result.name">
 			</a>
@@ -41,6 +44,7 @@
 		mounted(){
 			Pubsub.subscribe('result', (_, newslist)=>{
 				this.result = newslist[0]
+				this.show = true
 			})
 		},
 		beforeDestroy(){
